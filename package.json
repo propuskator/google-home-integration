@@ -1,0 +1,48 @@
+{
+    "name": "google-home",
+    "version": "1.0.0",
+    "description": "A service for the integration with Google Home",
+    "main": "runner.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "test:lint": "eslint runner.js app.js lib/ --ext js",
+        "start": "node runner.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:propuskator/google-home-integration.git"
+    },
+    "author": "Propuskator",
+    "devDependencies": {
+        "babel-eslint": "^10.1.0",
+        "eslint": "^7.18.0",
+        "eslint-config-webbylab": "^5.4.1",
+        "eslint-plugin-fetch": "0.0.1",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-more": "^1.0.0",
+        "eslint-plugin-no-require-lodash": "^1.1.0",
+        "eslint-plugin-prefer-spread": "^1.0.3",
+        "eslint-plugin-react": "^7.22.0",
+        "eslint-plugin-security": "^1.4.0"
+    },
+    "dependencies": {
+        "actions-on-google": "^2.13.0",
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "chista": "^1.0.0",
+        "colors": "^1.4.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "homie-sdk": "^1.0.0",
+        "isomorphic-fetch": "^3.0.0",
+        "json-pointer": "^0.6.1",
+        "jsonwebtoken": "^8.5.1",
+        "livr": "^2.3.2",
+        "mustache-express": "^1.3.0",
+        "mysql2": "^2.2.5",
+        "rename-keys": "^2.0.1",
+        "sequelize": "^6.4.0",
+        "uuid": "^8.3.2",
+        "winston": "^3.3.3"
+    }
+}

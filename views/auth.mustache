@@ -1,0 +1,312 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Propuskator Demo Google Home Auth</title>
+
+    <style type="text/css">
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #F0F0F0;
+            font-family: Arial;
+            height: 100%;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            width: 300px;
+            height: auto;
+            padding: 15px 15px 7px 15px;
+            border: 3px #F0F0F0;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+            background-color: rgb(255, 255, 255);
+        }
+
+        .fieldWrapper {
+            width: 100%;
+            margin: 3px 0;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            margin: 6px 0;
+            padding: 12px 20px;
+            border: 1px solid #CCCCCC;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .passwordField:hover {
+            border: 1px solid #38B1A8;
+        }
+
+        .passwordField:focus {
+            border: 1px solid #38B1A8;
+            outline: none;
+        }
+
+        .emailField:hover {
+            border: 1px solid #38B1A8;
+        }
+
+        .emailField:focus {
+            border: 1px solid #38B1A8;
+            outline: none;
+        }
+
+        .password {
+            position: relative;
+        }
+
+        .showPass:hover path {
+            cursor: pointer;
+            fill: #979797;
+        }
+
+        .hidePass:hover path {
+            cursor: pointer;
+            fill: #979797;
+        }
+
+        .password .showPass {
+            display: none;
+        }
+
+        .password .show .showPass {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            display: inline-block;
+            width: 20px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .password .hidePass {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            display: inline-block;
+            width: 20px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .password .show .hidePass {
+            display: none;
+        }
+
+        .invalid {
+            border: 1px solid #D63125 !important;
+        }
+
+        button {
+            width: 100%;
+            margin: 10px 0 2px 0;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #04C0B2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #38B1A8;
+        }
+
+        button:active {
+            background-color: #76e0d8;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .info {
+            padding: 4px;
+            color: #9E9E9E;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .error {
+            width: 100%;
+            height: 20px;
+            padding: 4px;
+            color: #D63125;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .logo_container {
+            text-align: center;
+            width: 100%;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .logo {
+            width: 168px;
+            height: 30px;
+        }
+
+    </style>
+</head>
+
+<body>
+<form method="post" onsubmit="submitData(); return false;">
+    <input type="hidden" name="redirect_uri" value="{{redirect_uri}}" />
+    <input type="hidden" name="state" value="{{state}}" />
+    <div class="logo_container">
+        <img src="/smarthome/static/images/logo.svg" alt="Avatar" class="logo">
+    </div>
+    <div class="fieldWrapper">
+        <input type="text" name="workspaceName" placeholder="Workspace name" class="workspaceName" required />
+    </div>
+    <div class="fieldWrapper">
+        <input type="text" name="email" placeholder="Email" class="emailField" required />
+    </div>
+    <div class="fieldWrapper">
+        <div class="password">
+            <input type="password" name="password" placeholder="Password" class="passwordField" required />
+            <div class="icon">
+                <svg
+                    class="showPass"
+                    width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.9995 7C12.9995 7.79565 12.6834 8.55871 12.1208 9.12132C11.5582 9.68393 10.7951 10 9.99945 10C9.2038 10 8.44074 9.68393 7.87813 9.12132C7.31552 8.55871 6.99945 7.79565 6.99945 7C6.99945 6.20435 7.31552 5.44129 7.87813 4.87868C8.44074 4.31607 9.2038 4 9.99945 4C10.7951 4 11.5582 4.31607 12.1208 4.87868C12.6834 5.44129 12.9995 6.20435 12.9995 7V7Z" fill="#BEBEBE"/>
+                    <path d="M19.8935 6.553C17.7355 2.236 13.9035 0 9.99947 0C6.09647 0 2.26347 2.236 0.105466 6.553C0.0361074 6.6918 0 6.84484 0 7C0 7.15516 0.0361074 7.3082 0.105466 7.447C2.26347 11.764 6.09547 14 9.99947 14C13.9025 14 17.7355 11.764 19.8935 7.447C19.9628 7.3082 19.9989 7.15516 19.9989 7C19.9989 6.84484 19.9628 6.6918 19.8935 6.553V6.553ZM9.99947 12C7.03047 12 3.99747 10.38 2.12947 7C3.99747 3.62 7.02947 2 9.99947 2C12.9685 2 16.0015 3.62 17.8695 7C16.0015 10.38 12.9685 12 9.99947 12Z" fill="#BEBEBE"/>
+                </svg>
+                <svg
+                    class="hidePass"
+                    width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.70647 0.280712C2.51786 0.0985537 2.26526 -0.00224062 2.00306 3.78026e-05C1.74087 0.00231622 1.49006 0.107485 1.30465 0.292893C1.11924 0.478301 1.01407 0.729114 1.01179 0.99131C1.00951 1.25351 1.11031 1.50611 1.29247 1.69471L3.71647 4.11871C2.28647 5.19471 1.03847 6.67271 0.105466 8.54071C0.0361074 8.67951 0 8.83255 0 8.98771C0 9.14288 0.0361074 9.29591 0.105466 9.43471C2.26347 13.7517 6.09547 15.9877 9.99947 15.9877C11.5545 15.9877 13.0995 15.6327 14.5295 14.9327L17.2925 17.6947C17.4811 17.8769 17.7337 17.9777 17.9959 17.9754C18.2581 17.9731 18.5089 17.8679 18.6943 17.6825C18.8797 17.4971 18.9849 17.2463 18.9871 16.9841C18.9894 16.7219 18.8886 16.4693 18.7065 16.2807L2.70647 0.280712V0.280712ZM13.0135 13.4157C12.0335 13.7987 11.0135 13.9877 9.99947 13.9877C7.03047 13.9877 3.99747 12.3677 2.12947 8.98771C2.94647 7.50871 3.98747 6.36771 5.14747 5.55071L7.29147 7.69471C7.02355 8.25466 6.93593 8.88394 7.04068 9.49578C7.14543 10.1076 7.4374 10.6719 7.87634 11.1108C8.31527 11.5498 8.87955 11.8417 9.4914 11.9465C10.1032 12.0512 10.7325 11.9636 11.2925 11.6957L13.0125 13.4157H13.0135ZM16.5515 10.8837C17.0345 10.3277 17.4775 9.69671 17.8695 8.98771C16.0015 5.60771 12.9695 3.98771 9.99947 3.98771C9.88747 3.98771 9.77547 3.98971 9.66347 3.99471L7.87847 2.21071C8.57575 2.06258 9.28662 1.98784 9.99947 1.98771C13.9025 1.98771 17.7355 4.22371 19.8935 8.54071C19.9628 8.67951 19.9989 8.83255 19.9989 8.98771C19.9989 9.14288 19.9628 9.29591 19.8935 9.43471C19.3809 10.4704 18.7336 11.4338 17.9685 12.2997L16.5515 10.8837V10.8837Z" fill="#BEBEBE"/>
+            </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="info">
+        By signing in, you are authorizing Google to access your devices.
+    </div>
+    <button type="submit">Login</button>
+    <div class="error">
+        <span id='errorMessage'></span>
+    </div>
+</form>
+
+<script>
+
+    const PASSWORD = 'password'
+    const TEXT = 'text'
+
+    const passwordField = document.querySelector('.passwordField')
+    const eyeIcon = document.querySelector('.icon')
+
+    eyeIcon.classList.add('show')
+
+    function togglePassword () {
+    if (passwordField.type === PASSWORD) {
+        passwordField.type = TEXT
+
+        eyeIcon.classList.remove('show')
+    } else {
+        passwordField.type = PASSWORD
+
+        eyeIcon.classList.add('show')
+    }
+    }
+
+    eyeIcon.addEventListener('click', togglePassword);
+
+    for (let input of document.querySelectorAll("input")) {
+        input.addEventListener("input", e => {
+            removeValidation();
+            removeError();
+        });
+    }
+
+    function removeValidation() {
+        for (let input of document.querySelectorAll("input")) {
+            input.classList.remove('invalid');
+        }
+    }
+
+    function setError(code) {
+        let message = '';
+        switch(code) {
+            case 'FORMAT_ERROR':
+                message = 'Wrong email format';
+                break;
+            case 'INVALID_CREDENTIALS':
+                message = 'Invalid credentials';
+                break;
+        }
+        const errorContainer = document.getElementById('errorMessage');
+        errorContainer.innerHTML = message || 'Something went wrong';
+    }
+
+    function removeError() {
+        const errorContainer = document.getElementById('errorMessage');
+        errorContainer.innerHTML = '';
+    }
+
+    async function submitData() {
+        const redirect_uri = document.getElementsByName('redirect_uri')[0].value;
+        const state = document.getElementsByName('state')[0].value;
+        const workspaceName = document.getElementsByName('workspaceName')[0].value;
+        const email = document.getElementsByName('email')[0].value;
+        const password = document.getElementsByName('password')[0].value;
+
+        const url = '{{{api_url}}}/smarthome/api/v1/oauth/login';
+
+        const urlEncoded = new URLSearchParams();
+        urlEncoded.append('redirect_uri', redirect_uri);
+        urlEncoded.append('state', state);
+        urlEncoded.append('workspaceName', workspaceName);
+        urlEncoded.append('email', email);
+        urlEncoded.append('password', password);
+
+        try {
+            const response = await fetch(url, {
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/x-www-form-urlencoded'
+                },
+                body : urlEncoded
+            });
+
+            const responseBody = await response.json();
+
+            if (responseBody.status === 0) {
+                        setError(responseBody.error?.code);
+
+                        const workspaceInput = document.getElementsByName('workspaceName')[0];
+                        const emailInput = document.getElementsByName('email')[0];
+                        const passwordInput = document.getElementsByName('password')[0];
+
+                        workspaceInput.classList.add('invalid');
+                        emailInput.classList.add('invalid');
+                        passwordInput.classList.add('invalid');
+                    }
+
+            if (responseBody.status === 1) {
+                window.location.replace(responseBody.data.redirect_uri);
+            } else {
+                console.error(responseBody);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+</script>
+</body>
+</html>
